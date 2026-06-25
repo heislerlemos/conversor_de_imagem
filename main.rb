@@ -9,7 +9,13 @@ window('Programa de conversão de visto de angola', 900 , 400) {
   margined true
 
   vertical_box {
+
+
     area {
+      path {
+        square(0, 0, 890)
+        fill r: 82, g: 32, b: 129, a: 1.0
+      }
       text {
         default_font family: 'Helvetica', size: 12, weight: :normal, italic: :normal, stretch: :normal
         string("Introduza imagem para elaborar conversão das imagens e modificar o tamanho para que seja aceita no consulado de angola") {
@@ -20,14 +26,14 @@ window('Programa de conversão de visto de angola', 900 , 400) {
     }
 
     button('Verificar requisitos do visto de angola') do
-      stretchy false
+        stretchy false
       on_clicked do
         msg_box('Requisitos', ficheiro_requisito)
       end
     end
 
     form {
-      stretchy false
+       stretchy false
 
       @caminho = entry { 
         label 'insira o caminho da imagem'
@@ -41,7 +47,6 @@ window('Programa de conversão de visto de angola', 900 , 400) {
         Image::image_convert(@caminho.text)
       end
     }
-
   } 
 }.show
 
