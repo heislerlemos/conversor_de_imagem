@@ -1,14 +1,27 @@
 require 'glimmer-dsl-libui'
 require "mini_magick"
 require_relative 'image'
+require 'libui'
+UI = LibUI
+UI.init
 include Glimmer
 include Image
 
-window('Programa de conversão de visto de angola', 900 , 400) {
+window('Conversão de Imagem para visto de angola', 900 , 500, true) {
+  #borderless true
+  resizable false # //  depois verifica o porque que não esta a funcionar  
   ficheiro_requisito = File.read("/home/heisler/code/visa_application_registar/requisitos.txt")
   margined true
 
+
   vertical_box {
+    button('Verificar requisitos do visto de angola') do
+      stretchy false
+      on_clicked do
+        msg_box('Requisitos', ficheiro_requisito)
+      end
+    end
+
 
 
     area {
@@ -32,25 +45,36 @@ window('Programa de conversão de visto de angola', 900 , 400) {
       }
     }
 
-    button('Verificar requisitos do visto de angola') do
-      stretchy false
-      on_clicked do
-        msg_box('Requisitos', ficheiro_requisito)
-      end
-    end
-
     form {
       stretchy false
 
-      @caminho = entry { 
-        label 'insira o caminho da imagem do passport'
+      @passaporte = entry { 
+        label 'PASSAPORTE:'
       }
+
+      @vacina = entry {
+        label 'VACINA:'
+      }
+
+      @fotografia = entry {
+        label 'FOTOGRAFIA:'
+      }
+
+      @bilhete_de_passagem = entry {
+        label 'BILHETE DE PASSAGEM:'
+      }
+
     }
 
-    button('Converter imagem') {
+    button('Submeter') {
       stretchy false
-      on_clicked do
-        Image::image_convert(@caminho.text)
+      on_clicked do 
+        Image::imgpassaporte(@passaporte.text)
+        Image::vacina(@vacina.text)
+        Image::fotografia(@fotografia.text) 
+        Image::bilhete(@bilhete_de_passagem.text)
+        main_window = UI.new_window('conversao feita', 800, 600, 1)
+        UI.msg_box(main_window, 'Information', " As imagens foram convertidas pode encontrar no seguinte directorio : ") 
       end
     }
   } 
