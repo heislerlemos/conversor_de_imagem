@@ -6,33 +6,41 @@ module Image
   def imgpassaporte (path)
     image = MiniMagick::Image.open(path)
     image.path
-    image.resize "300x100"
-    image.format "png"
-    image.write "./image_converted/passaporte_convertido.png"
-    main_window = UI.new_window('hello world', 600, 300, 1)
+    image.colorspace "gray"
+    image.size 70000
+    image.format "jpeg"
+    image.write "./image_converted/passaporte_convertido.jpeg"
   end
 
   def vacina (path)
     image = MiniMagick::Image.open(path)
     image.path
-    image.resize "300x100"
-    image.format "png"
-    image.write "./image_converted/vacina_convertido.png"
+    image.colorspace "gray"
+    image.format "jpeg"
+    image.write "./image_converted/vacina_convertido.jpeg"
   end
 
   def fotografia (path)
     image = MiniMagick::Image.open(path)
     image.path
-    image.resize "300x100"
-    image.format "png"
-    image.write "./image_converted/fotografia_convertido.png"
+    image.colorspace "gray"
+    image.format "jpeg"
+    image.write "./image_converted/fotografia_convertido.jpeg"
   end
 
   def bilhete (path)
     image = MiniMagick::Image.open(path)
     image.path
-    image.resize "300x100"
-    image.format "png"
-    image.write "./image_converted/bilhete_convertido.png"
+    image.colorspace "gray"
+    image.format "jpeg"
+    image.write "./image_converted/bilhete_convertido.jpeg"
+  end
+
+
+  # add a condition , when testing on windows machine
+
+  def diropen      
+      system("xdg-open", "/home/heisler/code/visa_application_registar/image_converted/")
+
   end
 end

@@ -49,19 +49,19 @@ window('Conversão de Imagem para visto de angola', 900 , 500, true) {
       stretchy false
 
       @passaporte = entry { 
-        label 'PASSAPORTE:'
+        label 'PASSAPORTE COM 6 MESES DE VALIDADE:'
       }
 
       @vacina = entry {
-        label 'VACINA:'
+        label 'CERTIFICADO DE VACINA:'
       }
 
       @fotografia = entry {
-        label 'FOTOGRAFIA:'
+        label 'FOTOGRAFIA COM FUNDO BRANCO:'
       }
 
       @bilhete_de_passagem = entry {
-        label 'BILHETE DE PASSAGEM:'
+        label 'BILHETE DE VIAGEM MARCADO:'
       }
 
     }
@@ -74,6 +74,7 @@ window('Conversão de Imagem para visto de angola', 900 , 500, true) {
         Image::fotografia(@fotografia.text) 
         Image::bilhete(@bilhete_de_passagem.text)
         main_window = UI.new_window('conversao feita', 800, 600, 1)
+        Image::diropen
         UI.msg_box(main_window, 'Information', " As imagens foram convertidas pode encontrar no seguinte directorio : ") 
       end
     }
