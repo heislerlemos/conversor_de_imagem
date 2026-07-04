@@ -1,9 +1,11 @@
 require 'glimmer-dsl-libui'
 require "mini_magick"
 require_relative 'image'
+require_relative 'directory'
 require 'libui'
 UI = LibUI
 UI.init
+include Directorio 
 include Glimmer
 include Image
 
@@ -12,7 +14,6 @@ window('Conversão de Imagem para visto de angola', 900 , 500, true) {
   resizable false # //  depois verifica o porque que não esta a funcionar  
   ficheiro_requisito = File.read("/home/heisler/code/visa_application_registar/requisitos.txt")
   margined true
-
 
   vertical_box {
     button('Verificar requisitos do visto de angola') do
@@ -64,6 +65,20 @@ window('Conversão de Imagem para visto de angola', 900 , 500, true) {
         label 'BILHETE DE VIAGEM MARCADO:'
       }
 
+      @valor  = combobox {
+        label 'OS DE DIRECTORIO ONDE ESTA AS IMAGENS IRÁ ABRIR'
+        items ["windows", "linux"]
+       
+          
+        on_selected do 
+          if  @valor.selected_item == "windows"
+          puts "este pc não é windows é linux"
+        else
+          Directorio::diropen
+        end 
+        end
+      }
+
     }
 
     button('Submeter') {
@@ -74,8 +89,8 @@ window('Conversão de Imagem para visto de angola', 900 , 500, true) {
         Image::fotografia(@fotografia.text) 
         Image::bilhete(@bilhete_de_passagem.text)
         main_window = UI.new_window('conversao feita', 800, 600, 1)
-        Image::diropen
-        UI.msg_box(main_window, 'Information', " As imagens foram convertidas pode encontrar no seguinte directorio : ") 
+        UI.msg_box(main_window, 'Information', " As imagens foram convertidas pode encontrar no seguinte directorio : ")
+
       end
     }
   } 
