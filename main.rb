@@ -2,12 +2,14 @@ require 'glimmer-dsl-libui'
 require "mini_magick"
 require_relative './Controller/image'
 require_relative './Controller/directory'
+require_relative './Controller/pdfconvert'
 require 'libui'
 UI = LibUI
 UI.init
 include Directorio 
 include Glimmer
 include Image
+include Pdftoimg
 
 window('Angolink', 900 , 500, true) {
   #borderless true
@@ -83,8 +85,11 @@ window('Angolink', 900 , 500, true) {
 
     button('Submeter') {
       stretchy false
-      on_clicked do 
+      on_clicked do
+
         Image::imgpassaporte(@passaporte.text)
+        Pdftoimg::imgtopdf(@passaporte.text)
+        
         Image::vacina(@vacina.text)
         Image::fotografia(@fotografia.text) 
         Image::bilhete(@bilhete_de_passagem.text)
