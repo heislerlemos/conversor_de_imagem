@@ -11,13 +11,19 @@ include Glimmer
 include Image
 include Pdftoimg
 
+menu('Menu') {
+  menu_item('Info') {
+    on_clicked do
+      window('Info', 900, 500) {
+      }.show
+    end
+  }
+}
+
 window('Angolink', 900 , 500, true) {
-  #borderless true
   resizable false # //  depois verifica o porque que não esta a funcionar  
   ficheiro_requisito = File.read("/home/heisler/code/visa_application_registar/Public/requisitos.txt")
-  
   margined true
-
 
   vertical_box {
     button('Verificar requisitos do visto de angola') do
@@ -26,7 +32,6 @@ window('Angolink', 900 , 500, true) {
         msg_box('Requisitos', ficheiro_requisito)
       end
     end
-
 
 
     area {
@@ -89,7 +94,7 @@ window('Angolink', 900 , 500, true) {
 
         Image::imgpassaporte(@passaporte.text)
         Pdftoimg::imgtopdf(@passaporte.text)
-        
+
         Image::vacina(@vacina.text)
         Image::fotografia(@fotografia.text) 
         Image::bilhete(@bilhete_de_passagem.text)
